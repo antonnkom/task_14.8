@@ -234,6 +234,7 @@ function saveBirthday(string $date)
 function getTimerBD(string $date) : string
 {
     $y = date('Y');
+    $nextY = date('Y', strtotime('+1 year'));
     $dateBD = $date . '-' . $y;
     $now = date('d-m-Y');
     $_SESSION['sale'] = 0;
@@ -244,7 +245,8 @@ function getTimerBD(string $date) : string
     if ($dateBDToTime > $nowToTime) {
         $restTime = $dateBDToTime - $nowToTime;
     } elseif ($dateBDToTime < $nowToTime) {
-        $dateBDToTime = strtotime('+1 year', strtotime($dateBDToTime));
+        $dateBD = $date . '-' . $nextY;
+        $dateBDToTime = strtotime($dateBD);
         $restTime = $dateBDToTime - $nowToTime;
     } else {
         $_SESSION['sale'] = 1;
