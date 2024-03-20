@@ -1,7 +1,7 @@
 <?php
 define('SECONDS_PER_MINUTE', 60);
 define('SECONDS_PER_HOUR', 3600);
-define('SECONDS_PER_DAY', 86400);
+require_once $_SERVER['DOCUMENT_ROOT'] . '/php/data.php';
 
 /**
  * Возвращает массив пользователей
@@ -42,6 +42,14 @@ function checkPassword(string $login, string $password) : bool
             $_SESSION['auth'] = true;
             $_SESSION['login'] = $login;
             $_SESSION['id'] = $user['id'];
+            
+            if (! empty($_COOKIE['timein'])) {
+                $_SESSION['timein'] = $_COOKIE['timein'];
+            } else {
+                $timein = date('Y-m-d H:i:s');
+                setcookie('timein', $timein, time() + 86400); // привязка к устройству
+                $_SESSION['timein'] = $timein;
+            }
         }
     }
 
@@ -110,6 +118,39 @@ function verifyFields(array $data) : string
 }
 
 /**
+ * Проверка полей для даты рождения
+ * @param array $data
+ * @return string
+ */
+function verifyFieldsDate(array $data) : string
+{
+    $error = '';
+
+    if (empty($data['birthday'])) {
+        $error = 'Введите дату рождения';
+    } elseif (empty($data['birthmonth'])) {
+        $error = 'Введите месяц рождения';
+    } elseif ($data['birthday'] < 1) {
+        $error = 'Некорректно введена дата';
+    } elseif ($data['birthday'] > 29) {
+        if ($data['birthmonth'] === '2') {
+            $error = 'Некорректно введена дата';
+        }
+    } elseif ($data['birthday'] > 30) {
+        if (
+            $data['birthmonth'] === '4' ||
+            $data['birthmonth'] === '6' ||
+            $data['birthmonth'] === '9' ||
+            $data['birthmonth'] === '11'
+        ) {
+            $error = 'Некорректно введена дата';
+        }
+    }
+
+    return $error;
+}
+
+/**
  * Редирект
  * @param string $url
  * @param int $code
@@ -140,7 +181,6 @@ function getTimer(string $date) : string
     $secondsRemaining -= ($minutesRemaining * SECONDS_PER_MINUTE);
 
     return "$hoursRemaining : $minutesRemaining : $secondsRemaining";
-     
 }
 
 // $array = [

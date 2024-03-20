@@ -36,8 +36,28 @@ function getTimer(elem, endTime)
     updateTimer();
     let timeInterval = setInterval(updateTimer, 1000);
   }
-   
-  let endTimeOfAction = new Date(Date.parse(new Date('2024-03-20 01:00:00')) + 15 * 24 * 60 * 60 * 1000);
-  const timerBlock = document.querySelector('#timer');
-  getTimer(timerBlock, endTimeOfAction);
+
+function getCookie(name)
+{
+    let cookies = document.cookie.split('; ');
+
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split('=');
+
+        if (name === cookie[0]) {
+            return cookie[1];
+        }
+    }
+}
+
+function replaceAll(str, search, replace)
+{
+    return str.split(search).join(replace);
+}
+
+let timeLogin = replaceAll(getCookie('timein').replace('%20', ' '), '%3A', ':');
+console.log(timeLogin);
+let endTimeOfAction = new Date(Date.parse(new Date(timeLogin)) + 15 * 24 * 60 * 60 * 1000);
+const timerBlock = document.querySelector('#timer');
+getTimer(timerBlock, endTimeOfAction);
   
