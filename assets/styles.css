@@ -235,3 +235,12 @@ header a {
     padding: 7px;
     width: 80px;
 }
+
+.photos div {
+    width: 31%;
+    margin: 1%;
+}
+
+.photos div img {
+    width: 100%;
+}

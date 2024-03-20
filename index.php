@@ -125,7 +125,9 @@ if (! empty($_POST['logout'])) {
         
         <section id="gallery">
             <div class="photos">
-                
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
             </div>
         </section>
     </main>

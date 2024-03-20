@@ -77,7 +77,9 @@ if (! empty($_POST)) {
             </div>
 
             <div class="photos">
-                
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
+                <div><img src="images/spa-oil-massage.jpg" alt="фото салона"></div>
             </div>
         </section>
     </main>
