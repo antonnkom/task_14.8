@@ -17,7 +17,7 @@ if (! empty($_POST['logout'])) {
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container header-top">
             <nav class="navbar">
                 <ul>
                     <?php if ($auth): ?>
@@ -25,21 +25,30 @@ if (! empty($_POST['logout'])) {
                     <?php endif; ?>
                 </ul>
             </nav>
-            <?php if ($auth) : ?>
-                <div class="login"><?= getCurrentUser() ?></div>
+            
+            <div>
+                <?php if ($auth) : ?>
+                    <div class="login"><?= getCurrentUser() ?></div>
 
-                <form method="post">
-                    <input name="logout" type="submit" value="Выход">
-                </form>
-            <?php else : ?>
-                <a href="login.php">Вход</a>
-            <?php endif; ?>
+                    <form method="post">
+                        <input name="logout" type="submit" value="Выход">
+                    </form>
+                <?php else : ?>
+                    <a href="login.php">Вход</a>
+                <?php endif; ?>
+            </div>
         </div>
     </header>
 
     <main class="content-main">
         <section id="header">
-
+            <div class="container">
+                <p>Приветствуем, <strong><?= getCurrentUser() ?>!</strong></p>
+                <?php if (! empty($_SESSION['birthday'])): ?>
+                    <p>Ваш день рождения: <strong><?= formatDate($_SESSION['birthday'] . '-' . date('Y')) ?></strong></p>
+                    <p><?= getTimerBD($_SESSION['birthday']) ?></p>
+                <?php endif; ?>
+            </div>
         </section>
 
         <section id="actions">
@@ -53,9 +62,9 @@ if (! empty($_POST['logout'])) {
                                 <div class="action-title">Персональная акция на СПА процедуры 50% скидка</div>
                                 <div class="action-price">
                                     <div class="new">5000₽</div>
-                                    <div class="old">10000₽</del></div>
+                                    <div class="old"><del>10000₽</del></div>
                                 </div>
-                                <div class="end-date"><?= getTimer($_SESSION['timein']) ?></div>
+                                <div class="end-date private">До конца действия акции осталось: <strong><?= getTimer($_SESSION['timein']) ?></strong></div>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -82,9 +91,16 @@ if (! empty($_POST['logout'])) {
                 <h2>Наши услуги</h2>
                 <div class="services">
                     <?php foreach ($services as $service): ?>
+                        <?php
+                        if ($_SESSION['sale']) {
+                            $price = ceil($service['price'] * 0.95);
+                        } else {
+                            $price = $service['price'];
+                        }
+                        ?>
                         <div class="service">
                             <div class="service-title"><?= $service['name'] ?></div>
-                            <div class="service-price"><?= $service['price'] ?>₽</div>
+                            <div class="service-price"><?= $price ?>₽</div>
                             <div class="service-list">
                                 <ul>
                                     <?php foreach ($service['list'] as $list): ?>
@@ -109,8 +125,8 @@ if (! empty($_POST['logout'])) {
 
     </footer>
 
-    <?php if ($auth): ?>
+    <?php /*if ($auth): ?> // раскоментировать, чтобы запустить js-счётчик до истечения персональной акции с обратным отсчетом
         <script src="assets/script.js"></script>
-    <?php endif; ?>
+    <?php endif; */?>
 </body>
 </html>

@@ -15,18 +15,11 @@ function getTimeRemaining(endtime)
    
 function getTimer(elem, endTime)
 {
-    let daysSpan = elem.querySelector('.days');
-    let hoursSpan = elem.querySelector('.hours');
-    let minutesSpan = elem.querySelector('.minutes');
-    let secondsSpan = elem.querySelector('.seconds');
-   
     function updateTimer()
     {
         let t = getTimeRemaining(endTime);
    
-        hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+        elem.innerHTML = 'часов: '+ ('0' + t.hours).slice(-2) + ', минут: ' + ('0' + t.minutes).slice(-2) + '. секунд: ' + ('0' + t.seconds).slice(-2);
    
         if (t.total <= 0) {
             clearInterval(timeInterval);
@@ -58,6 +51,6 @@ function replaceAll(str, search, replace)
 let timeLogin = replaceAll(getCookie('timein').replace('%20', ' '), '%3A', ':');
 console.log(timeLogin);
 let endTimeOfAction = new Date(Date.parse(new Date(timeLogin)) + 15 * 24 * 60 * 60 * 1000);
-const timerBlock = document.querySelector('#timer');
+const timerBlock = document.querySelector('.private');
 getTimer(timerBlock, endTimeOfAction);
   

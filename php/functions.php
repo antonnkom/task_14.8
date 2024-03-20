@@ -1,6 +1,7 @@
 <?php
 define('SECONDS_PER_MINUTE', 60);
 define('SECONDS_PER_HOUR', 3600);
+define('SECONDS_PER_DAY', 86400);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/php/data.php';
 
 /**
@@ -179,8 +180,78 @@ function getTimer(string $date) : string
 
     $minutesRemaining = floor($secondsRemaining / SECONDS_PER_MINUTE);
     $secondsRemaining -= ($minutesRemaining * SECONDS_PER_MINUTE);
+    
+    return "часов: $hoursRemaining, минут: $minutesRemaining, секунд: $secondsRemaining";
+}
 
-    return "$hoursRemaining : $minutesRemaining : $secondsRemaining";
+/**
+ * получение форматированной даты рождения
+ * @param string $date
+ * @return string
+ */
+function formatDate(string $date) : string
+{
+    $monthList = [
+        1  => 'января',
+        2  => 'февраля',
+        3  => 'марта',
+        4  => 'апреля',
+        5  => 'мая', 
+        6  => 'июня',
+        7  => 'июля',
+        8  => 'августа',
+        9  => 'сентября',
+        10 => 'октября',
+        11 => 'ноября',
+        12 => 'декабря'
+    ];
+
+    $day = date('d', strtotime($date));
+    $month = date('n', strtotime($date));
+
+    return $day . ' ' . $monthList[$month];
+}
+
+/**
+ * Запись даты рождения
+ * @param string $date
+ */
+function saveBirthday(string $date)
+{
+    if (! empty($_COOKIE['birthday'])) {
+        $_SESSION['birthday'] = $_COOKIE['birthday'];
+    } else {
+        setcookie('birthday', $date, time() + 86400 * 365);
+        $_SESSION['birthday'] = $date;
+    }
+}
+
+/**
+ * Таймер до дня рождения
+ * @param string $date
+ * @return string
+ */
+function getTimerBD(string $date) : string
+{
+    $y = date('Y');
+    $dateBD = $date . '-' . $y;
+    $now = date('d-m-Y');
+    $_SESSION['sale'] = 0;
+
+    $dateBDToTime = strtotime($dateBD);
+    $nowToTime = strtotime($now);
+
+    if ($dateBDToTime > $nowToTime) {
+        $restTime = $dateBDToTime - $nowToTime;
+    } elseif ($dateBDToTime < $nowToTime) {
+        $dateBDToTime = strtotime('+1 year', strtotime($dateBDToTime));
+        $restTime = $dateBDToTime - $nowToTime;
+    } else {
+        $_SESSION['sale'] = 1;
+        return '<strong>C днём рождения!</strong>';
+    }
+
+    return 'Осталось дней до дня рождения: <strong>' . floor($restTime / SECONDS_PER_DAY) . '</strong>';
 }
 
 // $array = [
