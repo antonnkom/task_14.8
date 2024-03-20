@@ -49,9 +49,9 @@ if ($auth) {
         <section id="header">
             <div class="container">
                 <p>Приветствуем, <strong><?= getCurrentUser() ?>!</strong></p>
-                <?php if (! empty($_SESSION['birthday'])): ?>
-                    <p>Ваш день рождения: <strong><?= formatDate($_SESSION['birthday'] . '-' . date('Y')) ?></strong></p>
-                    <p><?= getTimerBD($_SESSION['birthday']) ?></p>
+                <?php if (! empty($_COOKIE['birthday'])): ?>
+                    <p>Ваш день рождения: <strong><?= formatDate($_COOKIE['birthday'] . '-' . date('Y')) ?></strong></p>
+                    <p><?= getTimerBD($_COOKIE['birthday']) ?></p>
                 <?php endif; ?>
             </div>
         </section>
@@ -74,7 +74,7 @@ if ($auth) {
             </div>
         </section>
         
-        <?php if (empty($_SESSION['birthday'])): ?>
+        <?php if (empty($_COOKIE['birthday'])): ?>
             <section id="settings">
                 <div class="container">
                     <h2>Настройки</h2>

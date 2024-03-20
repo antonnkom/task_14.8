@@ -43,10 +43,12 @@ if (! empty($_POST['logout'])) {
     <main class="content-main">
         <section id="header">
             <div class="container">
-                <p>Приветствуем, <strong><?= getCurrentUser() ?>!</strong></p>
-                <?php if (! empty($_SESSION['birthday'])): ?>
-                    <p>Ваш день рождения: <strong><?= formatDate($_SESSION['birthday'] . '-' . date('Y')) ?></strong></p>
-                    <p><?= getTimerBD($_SESSION['birthday']) ?></p>
+                <?php if ($auth) : ?>
+                    <p>Приветствуем, <strong><?= getCurrentUser() ?>!</strong></p>
+                    <?php if (! empty($_COOKIE['birthday'])): ?>
+                        <p>Ваш день рождения: <strong><?= formatDate($_COOKIE['birthday'] . '-' . date('Y')) ?></strong></p>
+                        <p><?= getTimerBD($_COOKIE['birthday']) ?></p>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </section>
@@ -92,7 +94,7 @@ if (! empty($_POST['logout'])) {
                 <div class="services">
                     <?php foreach ($services as $service): ?>
                         <?php
-                        if ($_SESSION['sale']) {
+                        if (! empty($_SESSION['sale'])) {
                             $price = ceil($service['price'] * 0.95);
                         } else {
                             $price = $service['price'];
