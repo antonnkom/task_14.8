@@ -85,6 +85,10 @@
     text-transform: uppercase;
 }
 
+.service-photo img {
+    width: 100%;
+}
+
 .service-price {
     padding: 1.5rem;
     color: #2a2a2a;
@@ -129,6 +133,10 @@ h2 {
 .action-photo {
     width: 40%;
     box-sizing: border-box;
+}
+
+.action-photo img {
+    width: 100%;
 }
 
 .action-content {

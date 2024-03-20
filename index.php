@@ -59,7 +59,9 @@ if (! empty($_POST['logout'])) {
                 <div class="actions">
                     <?php if ($auth): ?>
                         <div class="action">
-                            <div class="action-photo"></div>
+                            <div class="action-photo">
+                                <img src="images/spa-oil-massage.jpg" alt="Персональная акция">
+                            </div>
                             <div class="action-content">
                                 <div class="action-title">Персональная акция на СПА процедуры 50% скидка</div>
                                 <div class="action-price">
@@ -73,7 +75,9 @@ if (! empty($_POST['logout'])) {
 
                     <?php foreach ($actions as $action): ?>
                         <div class="action">
-                            <div class="action-photo"></div>
+                            <div class="action-photo">
+                                <img src="images/spa-oil-massage.jpg" alt="<?= $action['name'] ?>">
+                            </div>
                             <div class="action-content">
                                 <div class="action-title"><?= $action['name'] ?></div>
                                 <div class="action-price">
@@ -102,6 +106,9 @@ if (! empty($_POST['logout'])) {
                         ?>
                         <div class="service">
                             <div class="service-title"><?= $service['name'] ?></div>
+                            <div class="service-photo">
+                                <img src="images/spa-oil-massage.jpg" alt="<?= $service['name'] ?>">
+                            </div>
                             <div class="service-price"><?= $price ?>₽</div>
                             <div class="service-list">
                                 <ul>

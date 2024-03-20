@@ -42,6 +42,9 @@ if (! empty($_POST)) {
                 <?php foreach ($services as $service): ?>
                     <div class="service">
                         <div class="service-title"><?= $service['name'] ?></div>
+                        <div class="service-photo">
+                            <img src="images/spa-oil-massage.jpg" alt="<?= $service['name'] ?>">
+                        </div>
                         <div class="service-price"><?= $service['price'] ?>₽</div>
                         <div class="service-list">
                             <ul>
@@ -58,7 +61,9 @@ if (! empty($_POST)) {
             <div class="actions">
                 <?php foreach ($actions as $action): ?>
                     <div class="action">
-                        <div class="action-photo"></div>
+                        <div class="action-photo">
+                            <img src="images/spa-oil-massage.jpg" alt="<?= $action['name'] ?>">
+                        </div>
                         <div class="action-content">
                             <div class="action-title"><?= $action['name'] ?></div>
                             <div class="action-price">

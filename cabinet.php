@@ -60,7 +60,9 @@ if ($auth) {
             <div class="container">
                 <div class="actions">
                     <div class="action">
-                        <div class="action-photo"></div>
+                        <div class="action-photo">
+                            <img src="images/spa-oil-massage.jpg" alt="Персональная акция">
+                        </div>
                         <div class="action-content">
                             <div class="action-title">Персональная акция на СПА процедуры 50% скидка</div>
                             <div class="action-price">
